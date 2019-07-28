@@ -3379,6 +3379,19 @@ void Encoder::configure(x265_param *p)
         p->bRepeatHeaders = 1;
         x265_log(p, X265_LOG_WARNING, "Turning on repeat - headers for zone encoding\n");
     }
+
+    if (m_param->bEnableHME)
+    {
+        if (m_param->sourceHeight < 540)
+        {
+            x265_log(p, X265_LOG_WARNING, "Source height < 540p is too low for HME. Disabling HME.\n");
+            p->bEnableHME = 0;
+        }
+        if (m_param->bEnableHME && m_param->searchMethod != m_param->hmeSearchMethod[2])
+        {
+            m_param->searchMethod = m_param->hmeSearchMethod[2];
+        }
+    }
 }
 
 void Encoder::readAnalysisFile(x265_analysis_data* analysis, int curPoc, const x265_picture* picIn, int paramBytes)

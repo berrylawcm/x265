@@ -1,3 +1,4 @@
+
 *********************
 Command Line Options
 *********************
@@ -1261,6 +1262,18 @@ Temporal / motion search options
 	Enable motion estimation with source frame pixels, in this mode, 
 	motion estimation can be computed independently. Default disabled.
 
+.. option:: --hme, --no-hme
+
+       Enable 3-level Hierarchical motion estimation at One-Sixteenth, 
+       Quarter and Full resolution. Default disabled.
+
+.. option:: --hme-search <integer|string>,<integer|string>,<integer|string>
+
+       Motion search method for HME Level 0, 1 and 2. Refer to :option:`--me` for values.
+       Specify search method for each level. Alternatively, specify a single value
+       which will apply to all levels. Default is hex,umh,umh for 
+       levels 0,1,2 respectively.
+
 Spatial/intra options
 =====================
 
@@ -1633,7 +1646,7 @@ Quality, rate control and rate distortion options
 	ignored. Slower presets will generally achieve better compression
 	efficiency (and generate smaller bitstreams). Default disabled.
 
-.. option:: --aq-mode <0|1|2|3>
+.. option:: --aq-mode <0|1|2|3|4>
 
 	Adaptive Quantization operating mode. Raise or lower per-block
 	quantization based on complexity analysis of the source image. The
@@ -1647,6 +1660,7 @@ Quality, rate control and rate distortion options
 	3. AQ enabled with auto-variance and bias to dark scenes. This is 
 	recommended for 8-bit encodes or low-bitrate 10-bit encodes, to 
 	prevent color banding/blocking. 
+	4. AQ enabled with auto-variance and edge information.
 
 .. option:: --aq-strength <float>
 

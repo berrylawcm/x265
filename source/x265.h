@@ -561,6 +561,7 @@ typedef enum
 #define X265_AQ_VARIANCE             1
 #define X265_AQ_AUTO_VARIANCE        2
 #define X265_AQ_AUTO_VARIANCE_BIASED 3
+#define X265_AQ_EDGE                 4
 #define x265_ADAPT_RD_STRENGTH   4
 #define X265_REFINE_INTER_LEVELS 3
 /* NOTE! For this release only X265_CSP_I420 and X265_CSP_I444 are supported */
@@ -1171,6 +1172,14 @@ typedef struct x265_param
 
     /* Enable availability of temporal motion vector for AMVP, default is enabled */
     int       bEnableTemporalMvp;
+
+    /* Enable 3-level Hierarchical motion estimation at One-Sixteenth, Quarter and Full resolution.
+     * Default is disabled */
+    int       bEnableHME;
+
+    /* Enable HME search method (DIA, HEX, UMH, STAR, SEA, FULL) for level 0, 1 and 2.
+     * Default is hex, umh, umh for L0, L1 and L2 respectively. */
+    int       hmeSearchMethod[3];
 
     /* Enable weighted prediction in P slices.  This enables weighting analysis
      * in the lookahead, which influences slice decisions, and enables weighting
